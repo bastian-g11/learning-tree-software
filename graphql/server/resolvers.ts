@@ -5,6 +5,7 @@ import { LikeResolvers } from '@graphql/server/like/resolvers';
 import { PositionResolvers } from '@graphql/server/position/resolvers';
 import { CourseStateResolvers } from '@graphql/server/courseState/resolvers';
 import { NoteResolvers } from '@graphql/server/note/resolvers';
+import { CommentResolvers } from '@graphql/server/comment/resolvers';
 
 const GlobalResolvers: Resolver[] = [
   UserTypeResolvers,
@@ -13,6 +14,7 @@ const GlobalResolvers: Resolver[] = [
   PositionResolvers,
   CourseStateResolvers,
   NoteResolvers,
+  CommentResolvers,
 ];
 
 export { GlobalResolvers };
