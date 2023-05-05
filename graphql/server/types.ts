@@ -7,6 +7,7 @@ import { PositionTypes } from '@graphql/server/position/types';
 import { CourseStateTypes } from '@graphql/server/courseState/types';
 import { NoteTypes } from '@graphql/server/note/types';
 import { CommentTypes } from '@graphql/server/comment/types';
+import { TrainingTypes } from '@graphql/server/training/types';
 
 const CommonTypes = gql`
   scalar Date
@@ -21,6 +22,7 @@ const GlobalTypes: DocumentNode[] = [
   CourseStateTypes,
   NoteTypes,
   CommentTypes,
+  TrainingTypes,
 ];
 
 export { GlobalTypes };
