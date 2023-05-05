@@ -4,7 +4,6 @@ const UserTypeTypes = gql`
   type UserType {
     id: ID
     name: String
-    users: [User]
   }
 
   input UserTypeCreateInput {

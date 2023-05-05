@@ -2,18 +2,6 @@ import prisma from '@config/prisma';
 import { Resolver } from 'types';
 
 const UserTypeResolvers: Resolver = {
-  UserType: {
-    users: async (parent, args) => {
-      const users = await prisma.user.findMany({
-        where: {
-          user_type_id: {
-            equals: parent.id,
-          },
-        },
-      });
-      return users;
-    },
-  },
   Query: {
     getUserType: async (parent, args) => {
       const userType = await prisma.userType.findUnique({
