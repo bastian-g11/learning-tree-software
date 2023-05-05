@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@next-auth/prisma-adapter": "^1.0.6",
     "@prisma/client": "^4.2.1",
     "apollo-server-micro": "^3.10.1",
     "apollo3-cache-persist": "^0.14.1",
@@ -19,6 +20,7 @@
     "micro": "^9.4.1",
     "nanoid": "^4.0.0",
     "next": "12.2.5",
+    "next-auth": "^4.22.1",
     "next-superjson": "^0.0.4",
     "nextjs-cors": "^2.1.1",
     "react": "18.2.0",
