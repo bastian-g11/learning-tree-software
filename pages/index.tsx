@@ -1,12 +1,7 @@
 import MyComponent from '@components/MyComponent';
+import { matchRoles } from '@utils/matchRoles';
 import { getSession, useSession } from 'next-auth/react';
 import { GetServerSidePropsContext, NextPage } from 'next/types';
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // if (!session?.user['http://your-namespace/roles'].includes('admin')) {
-  //   return { props: { error: 'Forbidden' } }
-  // }
-}
 
 const Home: NextPage = () => {
   return (

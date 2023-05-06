@@ -1,28 +1,18 @@
 import { gql } from 'apollo-server-micro';
 
 const UserTypes = gql`
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-
   type User {
     id: ID
     name: String
     email: String
-    emailVerified: DateTime
+    emailVerified: Date
     image: String
-    accounts: [Account]
-    sessions: [Session]
   }
 
   input UserCreateInput {
     name: String
     email: String
-    emailVerified: DateTime
+    emailVerified: Date
     image: String
   }
 
