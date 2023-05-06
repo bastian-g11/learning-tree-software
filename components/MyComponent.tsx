@@ -1,5 +1,5 @@
 import React from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { useQuery } from '@apollo/client';
 import { GET_MOCK_MODEL } from '@graphql/client/queries/getMockModel';
 import Loading from '@components/Loading';
@@ -14,6 +14,9 @@ const MyComponent = () => {
       <div>
         <button type='button' onClick={() => signIn('auth0')}>
           Iniciar sesion
+        </button>
+        <button type='button' onClick={() => signOut()}>
+          Cerrar sesion
         </button>
       </div>
       <h1>Data fetched with GraphQL</h1>

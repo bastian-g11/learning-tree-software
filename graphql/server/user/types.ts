@@ -1,31 +1,56 @@
 import { gql } from 'apollo-server-micro';
 
 const UserTypes = gql`
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
   type User {
     id: ID
+    name: String
     email: String
-    full_name: String
-    phone: String
-    address: String
-    photo_link: String
-    position: Position
-    user_type: UserType
-    course_states: [CourseState]
-    notes: [Note]
-    comments: [Comment]
-    likes: [Like]
-    trainings: [Training]
+    emailVerified: DateTime
+    image: String
+    accounts: [Account]
+    sessions: [Session]
   }
 
   input UserCreateInput {
-    email: String!
-    full_name: String!
-    phone: String!
-    address: String!
-    photo_link: String!
-    position_id: String!
-    user_type_id: String!
+    name: String
+    email: String
+    emailVerified: DateTime
+    image: String
   }
+
+  # type User {
+  #   id: ID
+  #   email: String
+  #   full_name: String
+  #   phone: String
+  #   address: String
+  #   photo_link: String
+  #   position: Position
+  #   user_type: UserType
+  #   course_states: [CourseState]
+  #   notes: [Note]
+  #   comments: [Comment]
+  #   likes: [Like]
+  #   trainings: [Training]
+  # }
+
+  # input UserCreateInput {
+  #   email: String!
+  #   full_name: String!
+  #   phone: String!
+  #   address: String!
+  #   photo_link: String!
+  #   position_id: String!
+  #   user_type_id: String!
+  # }
 
   input UserUpdateInput {
     email: String
