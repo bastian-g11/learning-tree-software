@@ -1,8 +1,4 @@
 const { Given, When, Then } = require('cucumber');
-const { expect } = require('chai');
-const assert = require('assert');
-const { sumar, dividir, restar } = require('../../calculator');
-
 
 // Scenario: Add new employee
   Given('I am logged in as an administrator', function () {
