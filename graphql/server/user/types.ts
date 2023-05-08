@@ -11,6 +11,7 @@ const UserTypes = gql`
     address: String
     photo_link: String
     position: Position
+    roles: [Role]
     course_states: [CourseState]
     notes: [Note]
     comments: [Comment]

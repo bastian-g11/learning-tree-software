@@ -8,7 +8,7 @@ import { NoteTypes } from '@graphql/server/note/types';
 import { PositionTypes } from '@graphql/server/position/types';
 import { TrainingTypes } from '@graphql/server/training/types';
 import { UserTypes } from '@graphql/server/user/types';
-import { UserTypeTypes } from '@graphql/server/userType/types';
+import { RoleTypes } from '@graphql/server/role/types';
 
 const CommonTypes = gql`
   scalar Date
@@ -24,7 +24,7 @@ const GlobalTypes: DocumentNode[] = [
   PositionTypes,
   TrainingTypes,
   UserTypes,
-  UserTypeTypes,
+  RoleTypes,
 ];
 
 export { GlobalTypes };
