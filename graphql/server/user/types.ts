@@ -3,53 +3,43 @@ import { gql } from 'apollo-server-micro';
 const UserTypes = gql`
   type User {
     id: ID
-    name: String
     email: String
-    emailVerified: Date
     image: String
+    emailVerified: Date
+    name: String
+    phone: String
+    address: String
+    photo_link: String
+    position: Position
+    course_states: [CourseState]
+    notes: [Note]
+    comments: [Comment]
+    likes: [Like]
+    trainings: [Training]
   }
 
   input UserCreateInput {
     name: String
     email: String
-    emailVerified: Date
     image: String
-  }
-
-  # type User {
-  #   id: ID
-  #   email: String
-  #   full_name: String
-  #   phone: String
-  #   address: String
-  #   photo_link: String
-  #   position: Position
-  #   user_type: UserType
-  #   course_states: [CourseState]
-  #   notes: [Note]
-  #   comments: [Comment]
-  #   likes: [Like]
-  #   trainings: [Training]
-  # }
-
-  # input UserCreateInput {
-  #   email: String!
-  #   full_name: String!
-  #   phone: String!
-  #   address: String!
-  #   photo_link: String!
-  #   position_id: String!
-  #   user_type_id: String!
-  # }
-
-  input UserUpdateInput {
-    email: String
-    full_name: String
+    emailVerified: Date
     phone: String
     address: String
     photo_link: String
     position_id: String
-    user_type_id: String
+    role_id: String
+  }
+
+  input UserUpdateInput {
+    name: String
+    email: String
+    image: String
+    emailVerified: Date
+    phone: String
+    address: String
+    photo_link: String
+    position_id: String
+    role_id: String
   }
 
   type Query {
