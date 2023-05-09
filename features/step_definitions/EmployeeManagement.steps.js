@@ -1,71 +1,59 @@
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 const { request } = require('graphql-request');
+const {
+  GET_USER_BY_EMAIL,
+  GET_TRAINING_BY_NAME,
+  GET_TRAINING_BY_ID,
+  GET_POSITION_BY_NAME,
+  GET_USER_BY_DOCUMENT,
+} = require('./queries');
+const {
+  CREATE_USER,
+  CREATE_TRAINING,
+  CREATE_COURSE,
+  ADD_TRAINING_TO_USER,
+} = require('./mutations');
 
 const endpoint = 'http://localhost:3000/api/graphql';
 
 // Scenario: Add new employee
-// Given(
-// 'I am logged with the email {string} in as an administrator with the role {string}',
-// async (email, role) => {
-//   const query = `query GetUserByEmail($email: String) {
-//     getUserByEmail(email: $email) {
-//       roles {
-//         name
-//       }
-//     }
-//   }`;
+Given(
+  'An user logged in with the email {string} in with the role {string}',
+  async (email, role) => {
+    const variables = {
+      email,
+    };
 
-//   const variables = {
-//     email,
-//   };
+    response = await request(endpoint, GET_USER_BY_EMAIL, variables);
 
-//   response = await request(endpoint, query, variables);
-
-//   const { getUserByEmail } = response;
-//   assert.ok(getUserByEmail.roles.some(item => item.name === role));
-//   assert.ok(!getUserByEmail.roles.some(item => item.name !== role));
-// }
-// );
+    const { getUserByEmail } = response;
+    assert.ok(getUserByEmail.roles.some(item => item.name === role));
+    assert.ok(!getUserByEmail.roles.some(item => item.name !== role));
+  }
+);
 
 // When(
-//   'I add a new employee with name {string}, identification {string}, position {string} and email {string}',
+//   'he adds a new employee with name {string}, identification {string}, position {string} and email {string}',
 //   async (name, document, position, email) => {
-//     const positionQuery = `query GetPositionByName($name: String) {
-//       getPositionByName(name: $name) {
-//         id
-//       }
-//     }`;
-
 //     const positionVariables = {
 //       position,
 //     };
 
 //     const {
 //       getPositionByName: { id: positionId },
-//     } = await request(endpoint, positionQuery, positionVariables);
+//     } = await request(endpoint, GET_POSITION_BY_NAME, positionVariables);
 
-// const userMutation = `mutation CreateUser($data: UserCreateInput, $roleId: String) {
-//   createUser(data: $data, role_id: $roleId) {
-//     email
-//     name
-//     position {
-//       name
-//     }
-//     document
-//   }
-// }`;
+//     const variables = {
+//       data: {
+//         name,
+//         document,
+//         position_id: positionId,
+//         email,
+//       },
+//     };
 
-// const variables = {
-//   data: {
-//     name,
-//     document,
-//     position_id: positionId,
-//     email,
-//   },
-// };
-
-// const { createUser } = await request(endpoint, userMutation, variables);
+//     const { createUser } = await request(endpoint, CREATE_USER, variables);
 
 //     const {
 //       email: userEmail,
@@ -84,170 +72,171 @@ const endpoint = 'http://localhost:3000/api/graphql';
 // Then(
 //   'the employee {string} with the document {string} should be added successfully',
 //   async (name, document) => {
-//   const query = `query GetUserByDocument($document: String) {
-//   getUserByDocument(document: $document) {
-//     name
+//     const variables = {
+//       document,
+//     };
+//     const { getUserByDocument } = await request(
+//       endpoint,
+//       GET_USER_BY_DOCUMENT,
+//       variables
+//     );
+
+//     assert.equal(getUserByDocument.name, name);
 //   }
-// }`;
-
-//   const variables = {
-//     document,
-//   };
-//   const { getUserByDocument } = await request(endpoint, query, variables);
-
-//   assert.equal(getUserByDocument.name, name);
-// }
 // );
 
 // Scenario: Add training plan to employee
-Given(
-  'I am logged with the email {string} in as an administrator with the role {string}',
-  async (email, role) => {
-    const query = `query GetUserByEmail($email: String) {
-    getUserByEmail(email: $email) {
-      roles {
-        name
-      }
-    }
-  }`;
+// Given(
+//   'an employee {string} with the document {string} exists',
+//   async (name, document) => {
+//     const variables = {
+//       document,
+//     };
+//     const { getUserByDocument } = await request(
+//       endpoint,
+//       GET_USER_BY_DOCUMENT,
+//       variables
+//     );
 
-    const variables = {
-      email,
-    };
+//     assert.equal(getUserByDocument.name, name);
+//   }
+// );
 
-    const response = await request(endpoint, query, variables);
+// When(
+//   'he adds a training plan named {string} with description {string} and courses {string}, {string}, {string}',
+//   async (name, description, course1, course2, course3) => {
+//     const variables = {
+//       data: {
+//         name,
+//         description,
+//       },
+//     };
+//     await request(endpoint, CREATE_TRAINING, variables);
 
-    const { getUserByEmail } = response;
-    assert.ok(getUserByEmail.roles.some(item => item.name === role));
-    assert.ok(!getUserByEmail.roles.some(item => item.name !== role));
-  }
-);
+//     const course1Variables = {
+//       data: {
+//         name: course1,
+//         link: 'testlink.com',
+//         duration: 4,
+//       },
+//     };
+//     const course2Variables = {
+//       data: {
+//         name: course2,
+//         link: 'testlink.com',
+//         duration: 4,
+//       },
+//     };
+//     const course3Variables = {
+//       data: {
+//         name: course3,
+//         link: 'testlink.com',
+//         duration: 4,
+//       },
+//     };
+//     const { createCourse: createCourse1 } = await request(
+//       endpoint,
+//       CREATE_COURSE,
+//       course1Variables
+//     );
+//     const { createCourse: createCourse2 } = await request(
+//       endpoint,
+//       CREATE_COURSE,
+//       course2Variables
+//     );
+//     const { createCourse: createCourse3 } = await request(
+//       endpoint,
+//       CREATE_COURSE,
+//       course3Variables
+//     );
+//     assert.equal(createCourse1.name, course1);
+//     assert.equal(createCourse2.name, course2);
+//     assert.equal(createCourse3.name, course3);
+//   }
+// );
 
-Given(
-  'an employee {string} with the document {string} exists',
-  async (name, document) => {
-    const query = `query GetUserByDocument($document: String) {
-    getUserByDocument(document: $document) {
-      name
-    }
-  }`;
+// When(
+//   'he assigns the plan {string} to the employee with the document {string}',
+//   async (planName, employeeDocument) => {
+//     const variables = {
+//       document: employeeDocument,
+//     };
 
-    const variables = {
-      document,
-    };
-    const { getUserByDocument } = await request(endpoint, query, variables);
+//     const { getUserByDocument } = await request(
+//       endpoint,
+//       GET_USER_BY_DOCUMENT,
+//       variables
+//     );
 
-    assert.equal(getUserByDocument.name, name);
-  }
-);
+//     const variablesTraining = {
+//       name: planName,
+//     };
 
-When(
-  'I add a training plan named {string} with description {string} and courses {string}, {string}, {string}',
-  async (name, description, course1, course2, course3) => {
-    // const trainingMutation = `mutation CreateTraining($data: TrainingCreateInput) {
-    //   createTraining(data: $data) {
-    //     id
-    //   }
-    // }`;
+//     const { getTrainingByName } = await request(
+//       endpoint,
+//       GET_TRAINING_BY_NAME,
+//       variablesTraining
+//     );
 
-    // const variables = {
-    //   data: {
-    //     name,
-    //     description,
-    //   },
-    // };
+//     const mutationVariables = {
+//       addTrainingsToUserId: getUserByDocument.id,
+//       trainingsIds: [getTrainingByName.id],
+//     };
 
-    // const { createTraining } = await request(
-    //   endpoint,
-    //   trainingMutation,
-    //   variables
-    // );
+//     await request(endpoint, ADD_TRAINING_TO_USER, mutationVariables);
+//   }
+// );
 
-    const courseMutation = `mutation CreateCourse($data: CourseCreateInput) {
-      createCourse(data: $data) {
-        name
-      }
-    }`;
+// Then(
+//   'the training plan {string} should be assigned to the employee with the document {string} successfully',
+//   async (planName, employeeDocument) => {
+//     // Code to verify that the training plan was assigned successfully
+//     const variablesTraining = {
+//       name: planName,
+//     };
 
-    const course1Variables = {
-      data: {
-        name: course1,
-        link: 'testlink.com',
-        duration: 4,
-      },
-    };
+//     const { getTrainingByName } = await request(
+//       endpoint,
+//       GET_TRAINING_BY_NAME,
+//       variablesTraining
+//     );
 
-    const course2Variables = {
-      data: {
-        name: course2,
-        link: 'testlink.com',
-        duration: 4,
-      },
-    };
+//     const variablesTrainingById = {
+//       getTrainingId: getTrainingByName.id,
+//     };
 
-    const course3Variables = {
-      data: {
-        name: course3,
-        link: 'testlink.com',
-        duration: 4,
-      },
-    };
+//     const { getTraining } = await request(
+//       endpoint,
+//       GET_TRAINING_BY_ID,
+//       variablesTrainingById
+//     );
 
-    const { createCourse: createCourse1 } = await request(
-      endpoint,
-      courseMutation,
-      course1Variables
-    );
+//     const usersAssignedToTraining = getTraining.users;
 
-    const { createCourse: createCourse2 } = await request(
-      endpoint,
-      courseMutation,
-      course2Variables
-    );
+//     assert.ok(
+//       usersAssignedToTraining.some(user => user.document === employeeDocument)
+//     );
+//     assert.ok(
+//       !usersAssignedToTraining.some(user => user.document !== employeeDocument)
+//     );
+//   }
+// );
 
-    const { createCourse: createCourse3 } = await request(
-      endpoint,
-      courseMutation,
-      course3Variables
-    );
-    assert.equal(createCourse1.name, course1);
-    assert.equal(createCourse2.name, course2);
-    assert.equal(createCourse3.name, course3);
-  }
-);
+// Scenario: Register completed course
+Given('he has the training plan {string} assigned', async () => {
+  // Code to check if a training plan is assigned to the employee
+});
 
-When('I assign the plan {string} to the employee {string}', function(
-  planName,
-  employeeName
-) {
-  // Code to assign the training plan to the employee
+When('he registers a completed course named {string}', async courseName => {
+  // Code to register the completed course
 });
 
 Then(
-  'the training plan {string} should be assigned to the employee {string} successfully',
-  function(planName, employeeName) {
-    // Code to verify that the training plan was assigned successfully
+  'the course {string} should be marked as completed successfully',
+  async courseName => {
+    // Code to verify that the course was marked as completed successfully
   }
 );
-
-// // Scenario: Register completed course
-// Given('I am logged in as an employee', function() {
-//   // Code to log in as an employee
-// });
-
-// Given('I have a training plan assigned', function() {
-//   // Code to check if a training plan is assigned to the employee
-// });
-
-// When('I register a completed course named {string}', function(courseName) {
-//   // Code to register the completed course
-// });
-
-// Then('the course {string} should be marked as completed successfully', function(
-//   courseName
-// ) {
-//   // Code to verify that the course was marked as completed successfully
-// });
 
 // // Scenario: View monthly top employees
 // Given('I am logged in as an administrator', function() {
