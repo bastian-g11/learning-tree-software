@@ -33,7 +33,7 @@ const GET_USER_BY_DOCUMENT = `query GetUserByDocument($document: String) {
   }
 }`;
 
-export {
+module.exports = {
   GET_POSITION_BY_NAME,
   GET_USER_BY_EMAIL,
   GET_TRAINING_BY_NAME,

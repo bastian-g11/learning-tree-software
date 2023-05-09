@@ -27,4 +27,9 @@ const ADD_TRAINING_TO_USER = `mutation AddTrainingsToUser($addTrainingsToUserId:
   }
 }`;
 
-export { CREATE_USER, CREATE_TRAINING, CREATE_COURSE, ADD_TRAINING_TO_USER };
+module.exports = {
+  CREATE_USER,
+  CREATE_TRAINING,
+  CREATE_COURSE,
+  ADD_TRAINING_TO_USER,
+};

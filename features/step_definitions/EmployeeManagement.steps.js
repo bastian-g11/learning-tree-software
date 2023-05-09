@@ -239,37 +239,37 @@ Then(
 );
 
 // // Scenario: View monthly top employees
-// Given('I am logged in as an administrator', function() {
+// Given('I am logged in as an administrator', async () => {
 //   // Code to log in as an administrator
 // });
 
-// When('I view the monthly top employees', function() {
+// When('I view the monthly top employees', async () => {
 //   // Code to generate the report of monthly top employees
 // });
 
 // Then(
 //   'I should see a report with the top employees who completed the most courses',
-//   function() {
+//   async () => {
 //     // Code to verify that the report shows the top employees who completed the most courses
 //   }
 // );
 
 // // Scenario: Login to system
-// Given('I am on the login page', function() {
+// Given('I am on the login page', async () => {
 //   // Code to navigate to the login page
 // });
 
-// When('I enter my email {string} and password {string}', function(
+// When('I enter my email {string} and password {string}', async (
 //   email,
 //   password
-// ) {
+// ) => {
 //   // Code to enter the email and password
 // });
 
-// When('I click on the login button', function() {
+// When('I click on the login button', async () => {
 //   // Code to click on the login button
 // });
 
-// Then('I should be logged in successfully', function() {
+// Then('I should be logged in successfully', async () => {
 //   // Code to verify that the user is logged in successfully
 // });
