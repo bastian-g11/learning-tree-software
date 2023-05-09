@@ -23,6 +23,14 @@ const PositionResolvers: Resolver = {
       });
       return position;
     },
+    getPositionByName: async (parent, args) => {
+      const position = await prisma.position.findFirst({
+        where: {
+          name: args.name,
+        },
+      });
+      return position;
+    },
     getPositions: async () => {
       const positions = await prisma.position.findMany();
       return positions;

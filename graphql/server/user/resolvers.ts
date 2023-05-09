@@ -85,6 +85,22 @@ const UserResolvers: Resolver = {
       });
       return user;
     },
+    getUserByEmail: async (parent, args) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: args.email,
+        },
+      });
+      return user;
+    },
+    getUserByDocument: async (parent, args) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          document: args.document,
+        },
+      });
+      return user;
+    },
     getUsers: async (parent, args) => {
       const users = await prisma.user.findMany();
       return users;
@@ -92,10 +108,16 @@ const UserResolvers: Resolver = {
   },
   Mutation: {
     createUser: async (parent, args) => {
+      const data = {
+        ...args.data,
+      };
+      if (args.role_id) {
+        data.roles = {
+          connect: [{ id: args.role_id }],
+        };
+      }
       const newUser = await prisma.user.create({
-        data: {
-          ...args.data,
-        },
+        data,
       });
       return newUser;
     },

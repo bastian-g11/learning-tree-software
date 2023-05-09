@@ -18,6 +18,7 @@ const PositionTypes = gql`
   type Query {
     getPosition(id: String): Position
     getPositions: [Position]
+    getPositionByName(name: String): Position
   }
 
   type Mutation {
