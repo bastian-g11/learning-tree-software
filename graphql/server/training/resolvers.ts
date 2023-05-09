@@ -47,6 +47,14 @@ const TrainingResolvers: Resolver = {
       });
       return training;
     },
+    getTrainingByName: async (parent, args) => {
+      const training = await prisma.training.findFirst({
+        where: {
+          name: args.name,
+        },
+      });
+      return training;
+    },
     getTrainings: async () => {
       const trainings = await prisma.training.findMany();
       return trainings;
@@ -58,7 +66,7 @@ const TrainingResolvers: Resolver = {
         data: {
           ...args.data,
           courses: {
-            connect: args.courses_ids.map((id: string) => ({ id })),
+            connect: args.courses_ids?.map((id: string) => ({ id })),
           },
         },
       });

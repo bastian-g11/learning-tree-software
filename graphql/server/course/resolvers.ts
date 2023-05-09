@@ -58,7 +58,7 @@ const CourseResolvers: Resolver = {
         data: {
           ...args.data,
           trainings: {
-            connect: args.trainings_ids.map((id: String) => ({ id })),
+            connect: args.trainings_ids?.map((id: String) => ({ id })),
           },
         },
       });

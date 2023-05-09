@@ -22,6 +22,7 @@ const TrainingTypes = gql`
 
   type Query {
     getTraining(id: String): Training
+    getTrainingByName(name: String): Training
     getTrainings: [Training]
   }
 
