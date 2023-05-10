@@ -25,6 +25,7 @@ const CourseTypes = gql`
 
   type Query {
     getCourse(id: String): Course
+    getCourseByName(name: String): Course
     getCourses: [Course]
   }
 

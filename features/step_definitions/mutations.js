@@ -27,9 +27,20 @@ const ADD_TRAINING_TO_USER = `mutation AddTrainingsToUser($addTrainingsToUserId:
   }
 }`;
 
+const CREATE_COURSE_STATE = `mutation Mutation($data: CourseStateCreateInput) {
+  createCourseState(data: $data) {
+    id
+    is_completed
+    course {
+      name
+    }
+  }
+}`;
+
 module.exports = {
   CREATE_USER,
   CREATE_TRAINING,
   CREATE_COURSE,
   ADD_TRAINING_TO_USER,
+  CREATE_COURSE_STATE,
 };

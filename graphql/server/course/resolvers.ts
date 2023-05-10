@@ -47,6 +47,14 @@ const CourseResolvers: Resolver = {
       });
       return course;
     },
+    getCourseByName: async (parent, args) => {
+      const course = await prisma.course.findUnique({
+        where: {
+          name: args.name,
+        },
+      });
+      return course;
+    },
     getCourses: async (parent, args) => {
       const courses = await prisma.course.findMany();
       return courses;

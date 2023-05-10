@@ -7,12 +7,15 @@ const {
   GET_TRAINING_BY_ID,
   GET_POSITION_BY_NAME,
   GET_USER_BY_DOCUMENT,
+  GET_COURSE,
+  GET_COURSE_BY_NAME,
 } = require('./queries');
 const {
   CREATE_USER,
   CREATE_TRAINING,
   CREATE_COURSE,
   ADD_TRAINING_TO_USER,
+  CREATE_COURSE_STATE,
 } = require('./mutations');
 
 const endpoint = 'http://localhost:3000/api/graphql';
@@ -25,9 +28,12 @@ Given(
       email,
     };
 
-    response = await request(endpoint, GET_USER_BY_EMAIL, variables);
+    const { getUserByEmail } = await request(
+      endpoint,
+      GET_USER_BY_EMAIL,
+      variables
+    );
 
-    const { getUserByEmail } = response;
     assert.ok(getUserByEmail.roles.some(item => item.name === role));
     assert.ok(!getUserByEmail.roles.some(item => item.name !== role));
   }
@@ -158,32 +164,32 @@ Given(
 // When(
 //   'he assigns the plan {string} to the employee with the document {string}',
 //   async (planName, employeeDocument) => {
-//     const variables = {
-//       document: employeeDocument,
-//     };
+// const variables = {
+//   document: employeeDocument,
+// };
 
-//     const { getUserByDocument } = await request(
-//       endpoint,
-//       GET_USER_BY_DOCUMENT,
-//       variables
-//     );
+// const { getUserByDocument } = await request(
+//   endpoint,
+//   GET_USER_BY_DOCUMENT,
+//   variables
+// );
 
-//     const variablesTraining = {
-//       name: planName,
-//     };
+// const variablesTraining = {
+//   name: planName,
+// };
 
-//     const { getTrainingByName } = await request(
-//       endpoint,
-//       GET_TRAINING_BY_NAME,
-//       variablesTraining
-//     );
+// const { getTrainingByName } = await request(
+//   endpoint,
+//   GET_TRAINING_BY_NAME,
+//   variablesTraining
+// );
 
-//     const mutationVariables = {
-//       addTrainingsToUserId: getUserByDocument.id,
-//       trainingsIds: [getTrainingByName.id],
-//     };
+// const mutationVariables = {
+//   addTrainingsToUserId: getUserByDocument.id,
+//   trainingsIds: [getTrainingByName.id],
+// };
 
-//     await request(endpoint, ADD_TRAINING_TO_USER, mutationVariables);
+// await request(endpoint, ADD_TRAINING_TO_USER, mutationVariables);
 //   }
 // );
 
@@ -223,20 +229,92 @@ Given(
 // );
 
 // Scenario: Register completed course
-Given('he has the training plan {string} assigned', async () => {
-  // Code to check if a training plan is assigned to the employee
-});
+// Given(
+//   'the user with the email {string} has the training plan {string} assigned',
+//   async (employeeEmail, planName) => {
+//     const variables = {
+//       email: employeeEmail,
+//     };
 
-When('he registers a completed course named {string}', async courseName => {
-  // Code to register the completed course
-});
+//     const { getUserByEmail } = await request(
+//       endpoint,
+//       GET_USER_BY_EMAIL,
+//       variables
+//     );
 
-Then(
-  'the course {string} should be marked as completed successfully',
-  async courseName => {
-    // Code to verify that the course was marked as completed successfully
-  }
-);
+//     const variablesTraining = {
+//       name: planName,
+//     };
+
+//     const { getTrainingByName } = await request(
+//       endpoint,
+//       GET_TRAINING_BY_NAME,
+//       variablesTraining
+//     );
+
+//     assert.ok(
+//       getTrainingByName.users.some(user => user.email === employeeEmail)
+//     );
+//   }
+// );
+
+// When(
+//   'the user with the email {string} registers a completed course named {string}',
+//   async (employeeEmail, courseName) => {
+//     const variables = {
+//       email: employeeEmail,
+//     };
+//     const { getUserByEmail } = await request(
+//       endpoint,
+//       GET_USER_BY_EMAIL,
+//       variables
+//     );
+//     const variablesTraining = {
+//       name: courseName,
+//     };
+//     const { getCourseByName } = await request(
+//       endpoint,
+//       GET_COURSE_BY_NAME,
+//       variablesTraining
+//     );
+//     const variablesCourseState = {
+//       data: {
+//         certificate_link: 'testlink.com',
+//         certificated: true,
+//         course_id: getCourseByName.id,
+//         is_completed: true,
+//         user_id: getUserByEmail.id,
+//       },
+//     };
+//     const { createCourseState } = await request(
+//       endpoint,
+//       CREATE_COURSE_STATE,
+//       variablesCourseState
+//     );
+//   }
+// );
+
+// Then(
+//   'the course {string} assigned to the user with the email {string} should be marked as completed successfully',
+//   async (courseName, employeeEmail) => {
+//     const variables = {
+//       email: employeeEmail,
+//     };
+
+//     const { getUserByEmail } = await request(
+//       endpoint,
+//       GET_USER_BY_EMAIL,
+//       variables
+//     );
+
+//     assert.ok(
+//       getUserByEmail.course_states.some(
+//         courseState =>
+//           courseState.course.name === courseName && courseState.is_completed
+//       )
+//     );
+//   }
+// );
 
 // // Scenario: View monthly top employees
 // Given('I am logged in as an administrator', async () => {

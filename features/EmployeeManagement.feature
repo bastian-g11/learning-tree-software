@@ -17,6 +17,6 @@ So that I can keep track of their progress and skills
 
 Scenario: Register completed course
 Given  An user logged in with the email "user@test.com" in with the role "USER"
-And he has the training plan "Web Development" assigned
-When he registers a completed course named "HTML"
-Then the course "HTML" should be marked as completed successfully
+And the user with the email "user@test.com" has the training plan "Web Development" assigned
+When the user with the email "user@test.com" registers a completed course named "HTML"
+Then the course "HTML" assigned to the user with the email "user@test.com" should be marked as completed successfully

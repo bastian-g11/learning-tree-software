@@ -1,5 +1,12 @@
 const GET_USER_BY_EMAIL = `query GetUserByEmail($email: String) {
   getUserByEmail(email: $email) {
+    id
+    course_states {
+      is_completed
+      course {
+        name
+      }
+    }
     roles {
       name
     }
@@ -9,6 +16,11 @@ const GET_USER_BY_EMAIL = `query GetUserByEmail($email: String) {
 const GET_TRAINING_BY_NAME = `query GetTrainingByName($name: String) {
   getTrainingByName(name: $name) {
     id
+    users {
+      document
+      name
+      email
+    }
   }
 }`;
 
@@ -33,10 +45,34 @@ const GET_USER_BY_DOCUMENT = `query GetUserByDocument($document: String) {
   }
 }`;
 
+const GET_COURSE = `query GetCourse($getCourseId: String) {
+  getCourse(id: $getCourseId) {
+    id
+    name
+    trainings {
+      id
+      name
+    }
+  }
+}`;
+
+const GET_COURSE_BY_NAME = `query GetCourseByName($name: String) {
+  getCourseByName(name: $name) {
+    id
+    name
+    trainings {
+      id
+      name
+    }
+  }
+}`;
+
 module.exports = {
   GET_POSITION_BY_NAME,
   GET_USER_BY_EMAIL,
   GET_TRAINING_BY_NAME,
   GET_TRAINING_BY_ID,
   GET_USER_BY_DOCUMENT,
+  GET_COURSE,
+  GET_COURSE_BY_NAME,
 };
