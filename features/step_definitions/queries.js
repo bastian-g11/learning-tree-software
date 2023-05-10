@@ -71,6 +71,12 @@ const GET_COURSE_BY_NAME = `query GetCourseByName($name: String) {
       id
       name
     }
+    notes {
+      text
+      user {
+        email
+      }
+    }
   }
 }`;
 

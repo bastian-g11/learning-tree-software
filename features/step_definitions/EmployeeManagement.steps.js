@@ -17,6 +17,7 @@ const {
   ADD_TRAINING_TO_USER,
   CREATE_COURSE_STATE,
   CREATE_COMMENT,
+  CREATE_NOTE,
 } = require('./mutations');
 
 const endpoint = 'http://localhost:3000/api/graphql';
@@ -40,282 +41,277 @@ Given(
   }
 );
 
-// When(
-//   'he adds a new employee with name {string}, identification {string}, position {string} and email {string}',
-//   async (name, document, position, email) => {
-//     const positionVariables = {
-//       position,
-//     };
+When(
+  'he adds a new employee with name {string}, identification {string}, position {string} and email {string}',
+  async (name, document, position, email) => {
+    const positionVariables = {
+      position,
+    };
 
-//     const {
-//       getPositionByName: { id: positionId },
-//     } = await request(endpoint, GET_POSITION_BY_NAME, positionVariables);
+    const {
+      getPositionByName: { id: positionId },
+    } = await request(endpoint, GET_POSITION_BY_NAME, positionVariables);
 
-//     const variables = {
-//       data: {
-//         name,
-//         document,
-//         position_id: positionId,
-//         email,
-//       },
-//     };
+    const variables = {
+      data: {
+        name,
+        document,
+        position_id: positionId,
+        email,
+      },
+    };
 
-//     const { createUser } = await request(endpoint, CREATE_USER, variables);
+    const { createUser } = await request(endpoint, CREATE_USER, variables);
 
-//     const {
-//       email: userEmail,
-//       name: userName,
-//       position: { name: positionName },
-//       document: userDocument,
-//     } = createUser;
+    const {
+      email: userEmail,
+      name: userName,
+      position: { name: positionName },
+      document: userDocument,
+    } = createUser;
 
-//     assert.equal(userEmail, email);
-//     assert.equal(userName, name);
-//     assert.equal(positionName, position);
-//     assert.equal(userDocument, document);
-//   }
-// );
+    assert.equal(userEmail, email);
+    assert.equal(userName, name);
+    assert.equal(positionName, position);
+    assert.equal(userDocument, document);
+  }
+);
 
-// Then(
-//   'the employee {string} with the document {string} should be added successfully',
-//   async (name, document) => {
-//     const variables = {
-//       document,
-//     };
-//     const { getUserByDocument } = await request(
-//       endpoint,
-//       GET_USER_BY_DOCUMENT,
-//       variables
-//     );
+Then(
+  'the employee {string} with the document {string} should be added successfully',
+  async (name, document) => {
+    const variables = {
+      document,
+    };
+    const { getUserByDocument } = await request(
+      endpoint,
+      GET_USER_BY_DOCUMENT,
+      variables
+    );
 
-//     assert.equal(getUserByDocument.name, name);
-//   }
-// );
+    assert.equal(getUserByDocument.name, name);
+  }
+);
 
 // Scenario: Add training plan to employee
-// Given(
-//   'an employee {string} with the document {string} exists',
-//   async (name, document) => {
-//     const variables = {
-//       document,
-//     };
-//     const { getUserByDocument } = await request(
-//       endpoint,
-//       GET_USER_BY_DOCUMENT,
-//       variables
-//     );
+Given(
+  'an employee {string} with the document {string} exists',
+  async (name, document) => {
+    const variables = {
+      document,
+    };
+    const { getUserByDocument } = await request(
+      endpoint,
+      GET_USER_BY_DOCUMENT,
+      variables
+    );
 
-//     assert.equal(getUserByDocument.name, name);
-//   }
-// );
+    assert.equal(getUserByDocument.name, name);
+  }
+);
 
-// When(
-//   'he adds a training plan named {string} with description {string} and courses {string}, {string}, {string}',
-//   async (name, description, course1, course2, course3) => {
-//     const variables = {
-//       data: {
-//         name,
-//         description,
-//       },
-//     };
-//     await request(endpoint, CREATE_TRAINING, variables);
+When(
+  'he adds a training plan named {string} with description {string} and courses {string}, {string}, {string}',
+  async (name, description, course1, course2, course3) => {
+    const variables = {
+      data: {
+        name,
+        description,
+      },
+    };
+    await request(endpoint, CREATE_TRAINING, variables);
 
-//     const course1Variables = {
-//       data: {
-//         name: course1,
-//         link: 'testlink.com',
-//         duration: 4,
-//       },
-//     };
-//     const course2Variables = {
-//       data: {
-//         name: course2,
-//         link: 'testlink.com',
-//         duration: 4,
-//       },
-//     };
-//     const course3Variables = {
-//       data: {
-//         name: course3,
-//         link: 'testlink.com',
-//         duration: 4,
-//       },
-//     };
-//     const { createCourse: createCourse1 } = await request(
-//       endpoint,
-//       CREATE_COURSE,
-//       course1Variables
-//     );
-//     const { createCourse: createCourse2 } = await request(
-//       endpoint,
-//       CREATE_COURSE,
-//       course2Variables
-//     );
-//     const { createCourse: createCourse3 } = await request(
-//       endpoint,
-//       CREATE_COURSE,
-//       course3Variables
-//     );
-//     assert.equal(createCourse1.name, course1);
-//     assert.equal(createCourse2.name, course2);
-//     assert.equal(createCourse3.name, course3);
-//   }
-// );
+    const course1Variables = {
+      data: {
+        name: course1,
+        link: 'testlink.com',
+        duration: 4,
+      },
+    };
+    const course2Variables = {
+      data: {
+        name: course2,
+        link: 'testlink.com',
+        duration: 4,
+      },
+    };
+    const course3Variables = {
+      data: {
+        name: course3,
+        link: 'testlink.com',
+        duration: 4,
+      },
+    };
+    const { createCourse: createCourse1 } = await request(
+      endpoint,
+      CREATE_COURSE,
+      course1Variables
+    );
+    const { createCourse: createCourse2 } = await request(
+      endpoint,
+      CREATE_COURSE,
+      course2Variables
+    );
+    const { createCourse: createCourse3 } = await request(
+      endpoint,
+      CREATE_COURSE,
+      course3Variables
+    );
+    assert.equal(createCourse1.name, course1);
+    assert.equal(createCourse2.name, course2);
+    assert.equal(createCourse3.name, course3);
+  }
+);
 
-// When(
-//   'he assigns the plan {string} to the employee with the document {string}',
-//   async (planName, employeeDocument) => {
-// const variables = {
-//   document: employeeDocument,
-// };
+When(
+  'he assigns the plan {string} to the employee with the document {string}',
+  async (planName, employeeDocument) => {
+    const variables = {
+      document: employeeDocument,
+    };
 
-// const { getUserByDocument } = await request(
-//   endpoint,
-//   GET_USER_BY_DOCUMENT,
-//   variables
-// );
+    const { getUserByDocument } = await request(
+      endpoint,
+      GET_USER_BY_DOCUMENT,
+      variables
+    );
 
-// const variablesTraining = {
-//   name: planName,
-// };
+    const variablesTraining = {
+      name: planName,
+    };
 
-// const { getTrainingByName } = await request(
-//   endpoint,
-//   GET_TRAINING_BY_NAME,
-//   variablesTraining
-// );
+    const { getTrainingByName } = await request(
+      endpoint,
+      GET_TRAINING_BY_NAME,
+      variablesTraining
+    );
 
-// const mutationVariables = {
-//   addTrainingsToUserId: getUserByDocument.id,
-//   trainingsIds: [getTrainingByName.id],
-// };
+    const mutationVariables = {
+      addTrainingsToUserId: getUserByDocument.id,
+      trainingsIds: [getTrainingByName.id],
+    };
 
-// await request(endpoint, ADD_TRAINING_TO_USER, mutationVariables);
-//   }
-// );
+    await request(endpoint, ADD_TRAINING_TO_USER, mutationVariables);
+  }
+);
 
-// Then(
-//   'the training plan {string} should be assigned to the employee with the document {string} successfully',
-//   async (planName, employeeDocument) => {
-//     // Code to verify that the training plan was assigned successfully
-//     const variablesTraining = {
-//       name: planName,
-//     };
+Then(
+  'the training plan {string} should be assigned to the employee with the document {string} successfully',
+  async (planName, employeeDocument) => {
+    const variablesTraining = {
+      name: planName,
+    };
 
-//     const { getTrainingByName } = await request(
-//       endpoint,
-//       GET_TRAINING_BY_NAME,
-//       variablesTraining
-//     );
+    const { getTrainingByName } = await request(
+      endpoint,
+      GET_TRAINING_BY_NAME,
+      variablesTraining
+    );
 
-//     const variablesTrainingById = {
-//       getTrainingId: getTrainingByName.id,
-//     };
+    const variablesTrainingById = {
+      getTrainingId: getTrainingByName.id,
+    };
 
-//     const { getTraining } = await request(
-//       endpoint,
-//       GET_TRAINING_BY_ID,
-//       variablesTrainingById
-//     );
+    const { getTraining } = await request(
+      endpoint,
+      GET_TRAINING_BY_ID,
+      variablesTrainingById
+    );
 
-//     const usersAssignedToTraining = getTraining.users;
+    const usersAssignedToTraining = getTraining.users;
 
-//     assert.ok(
-//       usersAssignedToTraining.some(user => user.document === employeeDocument)
-//     );
-//     assert.ok(
-//       !usersAssignedToTraining.some(user => user.document !== employeeDocument)
-//     );
-//   }
-// );
+    assert.ok(
+      usersAssignedToTraining.some(user => user.document === employeeDocument)
+    );
+    assert.ok(
+      !usersAssignedToTraining.some(user => user.document !== employeeDocument)
+    );
+  }
+);
 
 // Scenario: Register completed course
-// Given(
-//   'the user with the email {string} has the training plan {string} assigned',
-//   async (employeeEmail, planName) => {
-//     const variables = {
-//       email: employeeEmail,
-//     };
+Given(
+  'the user with the email {string} has the training plan {string} assigned',
+  async (employeeEmail, planName) => {
+    const variables = {
+      email: employeeEmail,
+    };
 
-//     const { getUserByEmail } = await request(
-//       endpoint,
-//       GET_USER_BY_EMAIL,
-//       variables
-//     );
+    const { getUserByEmail } = await request(
+      endpoint,
+      GET_USER_BY_EMAIL,
+      variables
+    );
 
-//     const variablesTraining = {
-//       name: planName,
-//     };
+    const variablesTraining = {
+      name: planName,
+    };
 
-//     const { getTrainingByName } = await request(
-//       endpoint,
-//       GET_TRAINING_BY_NAME,
-//       variablesTraining
-//     );
+    const { getTrainingByName } = await request(
+      endpoint,
+      GET_TRAINING_BY_NAME,
+      variablesTraining
+    );
 
-//     assert.ok(
-//       getTrainingByName.users.some(user => user.email === employeeEmail)
-//     );
-//   }
-// );
+    assert.ok(
+      getTrainingByName.users.some(user => user.email === employeeEmail)
+    );
+  }
+);
 
-// When(
-//   'the user with the email {string} registers a completed course named {string}',
-//   async (employeeEmail, courseName) => {
-//     const variables = {
-//       email: employeeEmail,
-//     };
-//     const { getUserByEmail } = await request(
-//       endpoint,
-//       GET_USER_BY_EMAIL,
-//       variables
-//     );
-//     const variablesTraining = {
-//       name: courseName,
-//     };
-//     const { getCourseByName } = await request(
-//       endpoint,
-//       GET_COURSE_BY_NAME,
-//       variablesTraining
-//     );
-//     const variablesCourseState = {
-//       data: {
-//         certificate_link: 'testlink.com',
-//         certificated: true,
-//         course_id: getCourseByName.id,
-//         is_completed: true,
-//         user_id: getUserByEmail.id,
-//       },
-//     };
-//     const { createCourseState } = await request(
-//       endpoint,
-//       CREATE_COURSE_STATE,
-//       variablesCourseState
-//     );
-//   }
-// );
+When(
+  'the user with the email {string} registers a completed course named {string}',
+  async (employeeEmail, courseName) => {
+    const variables = {
+      email: employeeEmail,
+    };
+    const { getUserByEmail } = await request(
+      endpoint,
+      GET_USER_BY_EMAIL,
+      variables
+    );
+    const variablesTraining = {
+      name: courseName,
+    };
+    const { getCourseByName } = await request(
+      endpoint,
+      GET_COURSE_BY_NAME,
+      variablesTraining
+    );
+    const variablesCourseState = {
+      data: {
+        certificate_link: 'testlink.com',
+        certificated: true,
+        course_id: getCourseByName.id,
+        is_completed: true,
+        user_id: getUserByEmail.id,
+      },
+    };
+    await request(endpoint, CREATE_COURSE_STATE, variablesCourseState);
+  }
+);
 
-// Then(
-//   'the course {string} assigned to the user with the email {string} should be marked as completed successfully',
-//   async (courseName, employeeEmail) => {
-// const variables = {
-//   email: employeeEmail,
-// };
+Then(
+  'the course {string} assigned to the user with the email {string} should be marked as completed successfully',
+  async (courseName, employeeEmail) => {
+    const variables = {
+      email: employeeEmail,
+    };
 
-// const { getUserByEmail } = await request(
-//   endpoint,
-//   GET_USER_BY_EMAIL,
-//   variables
-// );
+    const { getUserByEmail } = await request(
+      endpoint,
+      GET_USER_BY_EMAIL,
+      variables
+    );
 
-//     assert.ok(
-//       getUserByEmail.course_states.some(
-//         courseState =>
-//           courseState.course.name === courseName && courseState.is_completed
-//       )
-//     );
-//   }
-// );
+    assert.ok(
+      getUserByEmail.course_states.some(
+        courseState =>
+          courseState.course.name === courseName && courseState.is_completed
+      )
+    );
+  }
+);
 
 // Scenario: Add a comment to a training plan
 When(
@@ -371,6 +367,58 @@ Then(
         commentInTraining =>
           commentInTraining.text === comment &&
           commentInTraining.user.email === employeeEmail
+      )
+    );
+  }
+);
+
+When(
+  'the user with the email {string} adds a note with the text {string} to the course {string}',
+  async (employeeEmail, note, courseName) => {
+    const variablesUser = {
+      email: employeeEmail,
+    };
+    const { getUserByEmail } = await request(
+      endpoint,
+      GET_USER_BY_EMAIL,
+      variablesUser
+    );
+    const variablesCourse = {
+      name: courseName,
+    };
+    const { getCourseByName } = await request(
+      endpoint,
+      GET_COURSE_BY_NAME,
+      variablesCourse
+    );
+    const variables = {
+      data: {
+        text: note,
+        course_id: getCourseByName.id,
+        user_id: getUserByEmail.id,
+      },
+    };
+    await request(endpoint, CREATE_NOTE, variables);
+  }
+);
+
+Then(
+  'the note with the text {string} added by the user with the email {string} to the course {string} should be added successfully',
+  async (note, employeeEmail, courseName) => {
+    const variablesTraining = {
+      name: courseName,
+    };
+    const { getCourseByName } = await request(
+      endpoint,
+      GET_COURSE_BY_NAME,
+      variablesTraining
+    );
+
+    assert.ok(
+      getCourseByName.notes.some(
+        noteInCourse =>
+          noteInCourse.text === note &&
+          noteInCourse.user.email === employeeEmail
       )
     );
   }

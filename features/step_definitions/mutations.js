@@ -44,6 +44,13 @@ const CREATE_COMMENT = `mutation Mutation($data: CommentCreateInput) {
   }
 }`;
 
+const CREATE_NOTE = `mutation CreateNote($data: NoteCreateInput) {
+  createNote(data: $data) {
+    id
+    text
+  }
+}`;
+
 module.exports = {
   CREATE_USER,
   CREATE_TRAINING,
@@ -51,4 +58,5 @@ module.exports = {
   ADD_TRAINING_TO_USER,
   CREATE_COURSE_STATE,
   CREATE_COMMENT,
+  CREATE_NOTE,
 };
