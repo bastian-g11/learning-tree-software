@@ -80,6 +80,13 @@ const GET_COURSE_BY_NAME = `query GetCourseByName($name: String) {
   }
 }`;
 
+const GET_ROLES = `query GetRoles {
+  getRoles {
+    id
+    name
+  }
+}`;
+
 module.exports = {
   GET_POSITION_BY_NAME,
   GET_USER_BY_EMAIL,
@@ -88,4 +95,5 @@ module.exports = {
   GET_USER_BY_DOCUMENT,
   GET_COURSE,
   GET_COURSE_BY_NAME,
+  GET_ROLES,
 };

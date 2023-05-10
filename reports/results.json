@@ -1,0 +1,297 @@
+[
+  {
+    "description": "As an administrator or employee\nI want to manage employees and their training courses\nSo that I can keep track of their progress and skills",
+    "keyword": "Feature",
+    "name": "Employee Management & Trainings",
+    "line": 1,
+    "id": "employee-management-&-trainings",
+    "tags": [],
+    "uri": "features\\EmployeeManagement.feature",
+    "elements": [
+      {
+        "id": "employee-management-&-trainings;add-new-employee",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Add new employee",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "an user logged in with the email \"admin@test.com\" with the role \"ADMIN\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 53000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "he adds a new employee with name \"John Smith\", identification \"123456\", position \"DEVELOPER\", email \"user@test.com\" and the role \"USER\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 112000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "the employee \"John Smith\" with the document \"123456\" should be added successfully",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:85"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 34000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "employee-management-&-trainings;add-training-plan-to-employee",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Add training plan to employee",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "an user logged in with the email \"admin@test.com\" with the role \"ADMIN\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "an employee \"John Smith\" with the document \"123456\" exists",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:102"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "he adds a training plan named \"Web Development\" with description \"Learn web development\" and courses \"HTML\", \"CSS\", \"JavaScript\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:118"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "he assigns the plan \"Web Development\" to the employee with the document \"123456\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:171"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 88000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the training plan \"Web Development\" should be assigned to the employee with the document \"123456\" successfully",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:203"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 68000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "employee-management-&-trainings;register-completed-course",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Register completed course",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "an user logged in with the email \"user@test.com\" with the role \"USER\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 34000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "the user with the email \"user@test.com\" has the training plan \"Web Development\" assigned",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:238"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 59000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 21,
+            "name": "the user with the email \"user@test.com\" registers a completed course named \"HTML\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:267"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "the course \"HTML\" assigned to the user with the email \"user@test.com\" should be marked as completed successfully",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:299"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "employee-management-&-trainings;add-a-comment-to-a-training-plan",
+        "keyword": "Scenario",
+        "line": 24,
+        "name": "Add a comment to a training plan",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 25,
+            "name": "an user logged in with the email \"user@test.com\" with the role \"USER\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 26,
+            "name": "the user with the email \"user@test.com\" adds the comment \"What a great training\" to the training plan \"Web Development\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:322"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 27,
+            "name": "the comment \"What a great training\" added by the user with the email \"user@test.com\" to the training plan \"Web Development\" should be added successfully",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:357"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 37000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "employee-management-&-trainings;add-a-note-to-a-course",
+        "keyword": "Scenario",
+        "line": 29,
+        "name": "Add a note to a course",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 30,
+            "name": "an user logged in with the email \"user@test.com\" with the role \"USER\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 34000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 31,
+            "name": "the user with the email \"user@test.com\" adds a note with the text \"Keep in mind this section\" to the course \"HTML\"",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:381"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 177000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 32,
+            "name": "the note with the text \"Keep in mind this section\" added by the user with the email \"user@test.com\" to the course \"HTML\" should be added successfully",
+            "match": {
+              "location": "features\\step_definitions\\EmployeeManagement.steps.js:411"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 49000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -5,7 +5,7 @@ So that I can keep track of their progress and skills
 
 Scenario: Add new employee
 Given an user logged in with the email "admin@test.com" with the role "ADMIN"
-When he adds a new employee with name "John Smith", identification "123456", position "DEVELOPER" and email "user@test.com"
+When he adds a new employee with name "John Smith", identification "123456", position "DEVELOPER", email "user@test.com" and the role "USER"
 Then the employee "John Smith" with the document "123456" should be added successfully
 
 Scenario: Add training plan to employee

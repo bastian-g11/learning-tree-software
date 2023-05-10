@@ -7,8 +7,8 @@ const {
   GET_TRAINING_BY_ID,
   GET_POSITION_BY_NAME,
   GET_USER_BY_DOCUMENT,
-  GET_COURSE,
   GET_COURSE_BY_NAME,
+  GET_ROLES,
 } = require('./queries');
 const {
   CREATE_USER,
@@ -42,8 +42,8 @@ Given(
 );
 
 When(
-  'he adds a new employee with name {string}, identification {string}, position {string} and email {string}',
-  async (name, document, position, email) => {
+  'he adds a new employee with name {string}, identification {string}, position {string}, email {string} and the role {string}',
+  async (name, document, position, email, employeeRole) => {
     const positionVariables = {
       position,
     };
@@ -52,6 +52,10 @@ When(
       getPositionByName: { id: positionId },
     } = await request(endpoint, GET_POSITION_BY_NAME, positionVariables);
 
+    const { getRoles } = await request(endpoint, GET_ROLES);
+
+    const role = await getRoles.find(role => role.name === employeeRole);
+
     const variables = {
       data: {
         name,
@@ -59,6 +63,7 @@ When(
         position_id: positionId,
         email,
       },
+      roleId: role.id,
     };
 
     const { createUser } = await request(endpoint, CREATE_USER, variables);
@@ -372,6 +377,7 @@ Then(
   }
 );
 
+// Scenario: Add a note to course
 When(
   'the user with the email {string} adds a note with the text {string} to the course {string}',
   async (employeeEmail, note, courseName) => {

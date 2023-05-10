@@ -17,6 +17,7 @@
     "apollo-server-micro": "^3.10.1",
     "apollo3-cache-persist": "^0.14.1",
     "cucumber": "^6.0.7",
+    "cucumber-html-reporter": "^6.0.0",
     "graphql": "^16.6.0",
     "graphql-request": "^6.0.0",
     "micro": "^9.4.1",
