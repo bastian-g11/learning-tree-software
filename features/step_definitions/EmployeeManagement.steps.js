@@ -16,16 +16,17 @@ const {
   CREATE_COURSE,
   ADD_TRAINING_TO_USER,
   CREATE_COURSE_STATE,
+  CREATE_COMMENT,
 } = require('./mutations');
 
 const endpoint = 'http://localhost:3000/api/graphql';
 
-// Scenario: Add new employee
+// Scenario: Add a comment to a training plan
 Given(
-  'An user logged in with the email {string} in with the role {string}',
-  async (email, role) => {
+  'an user logged in with the email {string} with the role {string}',
+  async (employeeEmail, role) => {
     const variables = {
-      email,
+      email: employeeEmail,
     };
 
     const { getUserByEmail } = await request(
@@ -297,15 +298,15 @@ Given(
 // Then(
 //   'the course {string} assigned to the user with the email {string} should be marked as completed successfully',
 //   async (courseName, employeeEmail) => {
-//     const variables = {
-//       email: employeeEmail,
-//     };
+// const variables = {
+//   email: employeeEmail,
+// };
 
-//     const { getUserByEmail } = await request(
-//       endpoint,
-//       GET_USER_BY_EMAIL,
-//       variables
-//     );
+// const { getUserByEmail } = await request(
+//   endpoint,
+//   GET_USER_BY_EMAIL,
+//   variables
+// );
 
 //     assert.ok(
 //       getUserByEmail.course_states.some(
@@ -316,38 +317,61 @@ Given(
 //   }
 // );
 
-// // Scenario: View monthly top employees
-// Given('I am logged in as an administrator', async () => {
-//   // Code to log in as an administrator
-// });
+// Scenario: Add a comment to a training plan
+When(
+  'the user with the email {string} adds the comment {string} to the training plan {string}',
+  async (employeeEmail, comment, planName) => {
+    const variablesUser = {
+      email: employeeEmail,
+    };
 
-// When('I view the monthly top employees', async () => {
-//   // Code to generate the report of monthly top employees
-// });
+    const { getUserByEmail } = await request(
+      endpoint,
+      GET_USER_BY_EMAIL,
+      variablesUser
+    );
 
-// Then(
-//   'I should see a report with the top employees who completed the most courses',
-//   async () => {
-//     // Code to verify that the report shows the top employees who completed the most courses
-//   }
-// );
+    const variablesTraining = {
+      name: planName,
+    };
 
-// // Scenario: Login to system
-// Given('I am on the login page', async () => {
-//   // Code to navigate to the login page
-// });
+    const { getTrainingByName } = await request(
+      endpoint,
+      GET_TRAINING_BY_NAME,
+      variablesTraining
+    );
 
-// When('I enter my email {string} and password {string}', async (
-//   email,
-//   password
-// ) => {
-//   // Code to enter the email and password
-// });
+    const variables = {
+      data: {
+        text: comment,
+        training_id: getTrainingByName.id,
+        user_id: getUserByEmail.id,
+      },
+    };
 
-// When('I click on the login button', async () => {
-//   // Code to click on the login button
-// });
+    await request(endpoint, CREATE_COMMENT, variables);
+  }
+);
 
-// Then('I should be logged in successfully', async () => {
-//   // Code to verify that the user is logged in successfully
-// });
+Then(
+  'the comment {string} added by the user with the email {string} to the training plan {string} should be added successfully',
+  async (comment, employeeEmail, planName) => {
+    const variablesTraining = {
+      name: planName,
+    };
+
+    const { getTrainingByName } = await request(
+      endpoint,
+      GET_TRAINING_BY_NAME,
+      variablesTraining
+    );
+
+    assert.ok(
+      getTrainingByName.comments.some(
+        commentInTraining =>
+          commentInTraining.text === comment &&
+          commentInTraining.user.email === employeeEmail
+      )
+    );
+  }
+);

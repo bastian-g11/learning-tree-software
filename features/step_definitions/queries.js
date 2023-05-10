@@ -21,6 +21,13 @@ const GET_TRAINING_BY_NAME = `query GetTrainingByName($name: String) {
       name
       email
     }
+    comments {
+      id
+      text
+      user {
+        email
+      }
+    }
   }
 }`;
 

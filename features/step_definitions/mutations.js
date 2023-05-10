@@ -37,10 +37,18 @@ const CREATE_COURSE_STATE = `mutation Mutation($data: CourseStateCreateInput) {
   }
 }`;
 
+const CREATE_COMMENT = `mutation Mutation($data: CommentCreateInput) {
+  createComment(data: $data) {
+    id
+    text
+  }
+}`;
+
 module.exports = {
   CREATE_USER,
   CREATE_TRAINING,
   CREATE_COURSE,
   ADD_TRAINING_TO_USER,
   CREATE_COURSE_STATE,
+  CREATE_COMMENT,
 };
